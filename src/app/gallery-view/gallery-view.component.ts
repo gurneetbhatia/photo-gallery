@@ -15,7 +15,10 @@ export class GalleryViewComponent implements OnInit {
   constructor(private dataService: DataService) {  }
 
   ngOnInit(): void {
-    this.photos = this.dataService.getPhotos();
+    this.dataService.getPhotos().subscribe(
+      resp => this.photos = resp,
+      err => console.error('Observer got an error: ' + err)
+    );
   }
 
 }

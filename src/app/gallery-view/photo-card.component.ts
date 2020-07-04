@@ -13,7 +13,6 @@ export class PhotoCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.photo);
   }
 
 }

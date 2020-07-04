@@ -1,4 +1,7 @@
-<div align="center">
-    <img [src]="photo.thumbnailUrl" >
-    <p>{{photo.title}}</p>
+<div class="card text-center photo-card" style="width: 18rem;">
+    <img class="card-img-top" [src]="photo.thumbnailUrl" alt="Card thumbnail">
+    <div class="card-body">
+        <p class="card-text">{{photo.title}}</p>
+        <a routerLink="" class="btn btn-primary">View details</a>
+    </div>
 </div>

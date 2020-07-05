@@ -1,0 +1,11 @@
+<div *ngIf="photo" align="center" class="container photo-details">
+    <button class="btn btn-primary">Edit</button>
+    <img [src]="photo.url" class="photo-img">
+    <div align="left">
+        <p><b>Title:</b> {{photo.title}}</p>
+        <p><b>ID:</b> {{photo.id}}</p>
+        <p><b>Thumbnail URL:</b> {{photo.thumbnailUrl}}</p>
+        <p><b>URL:</b> {{photo.url}}</p>
+        <p><b>Album ID:</b> {{photo.albumId}}</p>
+    </div>
+</div>

@@ -14,4 +14,9 @@ export class DataService {
   getPhotos(): Observable<Photo[]> {
     return this.http.get<Photo[]>('http://jsonplaceholder.typicode.com/photos');
   }
+
+  getPhoto(id: number): Observable<Photo> {
+    console.log("getting the photo");
+    return this.http.get<Photo>(`http://jsonplaceholder.typicode.com/photos/${id}`);
+  }
 }

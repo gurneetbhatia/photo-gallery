@@ -2,6 +2,6 @@
     <img class="card-img-top" [src]="photo.thumbnailUrl" alt="Card thumbnail">
     <div class="card-body">
         <p class="card-text">{{photo.title}}</p>
-        <a routerLink="/gallery" class="btn btn-primary">View details</a>
+        <a [routerLink]="['/gallery', photo.id]" class="btn btn-primary">View details</a>
     </div>
 </div>

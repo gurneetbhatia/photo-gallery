@@ -1,0 +1,13 @@
+.photo-details {
+    margin-top: 10px;
+}
+
+.photo-img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.photo-details p {
+    font-size: 1.2rem;
+}

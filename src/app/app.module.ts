@@ -9,6 +9,7 @@ import { GalleryViewComponent } from './gallery-view/gallery-view.component';
 import { PhotoCardComponent } from './gallery-view/photo-card.component';
 import { LoadingScreenComponent } from './shared/loading-screen.component';
 import { LoadingScreenInterceptor } from './shared/loading.interceptor';
+import { PhotoDetailsComponent } from './details/photo-details.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LoadingScreenInterceptor } from './shared/loading.interceptor';
     NavBarComponent,
     GalleryViewComponent,
     PhotoCardComponent,
-    LoadingScreenComponent
+    LoadingScreenComponent,
+    PhotoDetailsComponent
   ],
   imports: [
     BrowserModule,

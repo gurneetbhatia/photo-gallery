@@ -1,5 +1,12 @@
 <div *ngIf="photo" align="center" class="container photo-details">
-    <button class="btn btn-primary">Edit</button>
+    <div class="text-right utility-buttons">
+        <button class="btn btn-info">
+            Edit
+        </button>
+        <button class="btn btn-danger" (click)="deletePhoto()">
+            Delete
+        </button>
+    </div>
     <img [src]="photo.url" class="photo-img">
     <div align="left">
         <p><b>Title:</b> {{photo.title}}</p>

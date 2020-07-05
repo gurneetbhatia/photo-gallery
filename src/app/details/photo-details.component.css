@@ -11,3 +11,7 @@
 .photo-details p {
     font-size: 1.2rem;
 }
+
+.utility-buttons .btn {
+    margin-right: 5px;
+}

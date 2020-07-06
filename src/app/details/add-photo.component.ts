@@ -19,7 +19,7 @@ export class AddPhotoComponent implements OnInit {
               private notificationService: NotificationService) { }
 
   onSubmit(photoForm: NgForm) {
-    if (photoForm.valid) {
+    if (photoForm.valid && !this.checkNaN(photoForm.value.albumId)) {
       const values = photoForm.value;
       // the form has been validated, otherwise the apt error is being displayed throught the template
       this.photo = {
@@ -55,7 +55,7 @@ export class AddPhotoComponent implements OnInit {
   }
 
   checkNaN(num: number): boolean {
-    return isNaN(num);
+    return !Number.isInteger(+num);
   }
 
   ngOnInit(): void {

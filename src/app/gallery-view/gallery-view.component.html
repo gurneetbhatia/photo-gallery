@@ -2,6 +2,28 @@
     <div align="center" class="gallery-title">
         <h1>Gallery</h1>
     </div>
+    <form #pagesizeForm="ngForm">
+        <div class="form-group row">
+            <label class="page-size-label" for="page-size" class="col-sm-2 col-form-label">Page Size:</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="page-size"  required [(ngModel)]="pageSize">
+            </div>
+
+            <label class="page-size-label" for="current-page" class="col-sm-2 col-form-label">Current Page:</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="current-page"  required [(ngModel)]="currentPage">
+            </div>
+
+            <div class="col-sm-2">
+                <button (click)="refreshPage(pagesizeForm)" class="btn btn-primary">Refresh</button>
+            </div>
+
+            <div *ngIf="(!pagesizeForm.valid || checkNaN(currentPage) || checkNaN(pageSize))" class="alert alert-danger">
+                Page size and current page are both required and must be numeric!
+            </div>
+        </div>
+    </form>
+
     <div class="row" align="center">
         <app-photo-card class="col-sm" *ngFor="let photo of photos" [photo]="photo"></app-photo-card>
     </div>

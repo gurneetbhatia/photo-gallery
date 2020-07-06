@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { DataService } from '../shared/data.service';
 import { Photo } from '../shared/photo';
@@ -47,6 +48,20 @@ export class GalleryViewComponent implements OnInit {
   pageButtonClicked(page: number) {
     this.currentPage = page;
     this.loadPage();
+  }
+
+  refreshPage(form: NgForm) {
+    if (form.valid && !(this.checkNaN(this.currentPage) || this.checkNaN(this.pageSize)) ) {
+      this.maxPage = Math.ceil(this.dataService.maxId/this.pageSize);
+      this.currentPage = this.currentPage < 0 ? 0 : this.currentPage;
+      this.currentPage = this.currentPage > this.maxPage ? this.maxPage : this.currentPage;
+      this.pages = Array(this.maxPage).fill(0).map((x,i)=>i+1);
+      this.loadPage();
+    }
+  }
+
+  checkNaN(num: number): boolean {
+    return !Number.isInteger(+num)
   }
 
   ngOnInit(): void {

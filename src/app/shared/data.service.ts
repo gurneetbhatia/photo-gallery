@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import { Photo } from './photo';
@@ -10,10 +10,15 @@ import { NotificationService } from './notification.service';
 })
 export class DataService {
 
-  data: Photo[];
+  maxId: number = -1;
 
   constructor(private http: HttpClient,
               private notificationService: NotificationService) { }
+
+  
+  getPhotosPage(page: number, limit: number): Observable<HttpResponse<Object>> {
+    return this.http.get<HttpResponse<Object>>(`http://jsonplaceholder.typicode.com/photos?_page=${page}&_limit=${limit}`, {observe: 'response'})
+  }
 
   getPhotos(): Observable<Photo[]> {
     return this.http.get<Photo[]>('http://jsonplaceholder.typicode.com/photos');
@@ -36,11 +41,7 @@ export class DataService {
   }
 
   getNewId(): number {
-    if (this.data) {
-      return this.data[this.data.length - 1].id + 1;
-    }
-    else {
-      return 0;
-    }
+    this.maxId += 1;
+    return this.maxId;
   }
 }

@@ -45,11 +45,11 @@ export class AddPhotoComponent implements OnInit {
   onCancel(form: NgForm) {
     if (form.pristine) {
       // none of the values have been modified so we can just navigate to the details page
-      this.notificationService.info("No changes were made to the photo.");
+      this.notificationService.info("Photo creation was cancelled.");
       this.router.navigate(['/gallery']);
     }
     else if(confirm("Are you sure you want to navigate away without saving your changes?")) {
-      this.notificationService.info("No changes were made to the photo.");
+      this.notificationService.info("Photo creation was cancelled.");
       this.router.navigate(['/gallery']);
     }
   }

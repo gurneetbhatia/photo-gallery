@@ -6,3 +6,23 @@
         <app-photo-card class="col-sm" *ngFor="let photo of photos" [photo]="photo"></app-photo-card>
     </div>
 </div>
+
+<nav aria-label="Page numbers">
+    <ul class="pagination flex-wrap">
+        <li [ngClass]="{'page-item': true, 'disabled': currentPage === 1}">
+            <a class="page-link" tabindex="-1">Previous</a>
+        </li>
+      
+        <li *ngFor="let pageNum of pages" 
+            [ngClass]="{'page-item': true, 'active': pageNum === currentPage}">
+            <button class="page-link">
+                {{pageNum}} 
+                <span *ngIf="pageNum === currentPage" class="sr-only">(current)</span>
+            </button>
+        </li>
+
+        <li [ngClass]="{'page-item': true, 'disabled': currentPage === maxPage}">
+            <a class="page-link">Next</a>
+        </li>
+    </ul>
+</nav>

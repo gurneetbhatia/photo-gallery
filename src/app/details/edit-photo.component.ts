@@ -70,7 +70,7 @@ export class EditPhotoComponent implements OnInit {
       const id = +values.photoId;
       if(id != this.id) {
         // the id has been changed
-        if(isNaN(id)) {
+        if(!Number.isInteger(id)) {
           this.invalidID = true;
         }
         else {

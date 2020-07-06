@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { Photo } from '../shared/photo';
 import { DataService } from '../shared/data.service';
@@ -11,17 +13,23 @@ import { NotificationService } from '../shared/notification.service';
   templateUrl: './edit-photo.component.html',
   styleUrls: ['./edit-photo.component.css']
 })
-export class EditPhotoComponent implements OnInit {
+export class EditPhotoComponent implements OnInit, OnDestroy {
 
   id: number;
   photo: Photo;
-  
   invalidID: boolean = false;
+
+  private ngUnsubscribe = new Subject();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private dataService: DataService,
               private notificationService: NotificationService) { }
+  
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
   submitForm(formValues) {
     const updatedPhoto: Photo = {
@@ -35,7 +43,9 @@ export class EditPhotoComponent implements OnInit {
     if(updatedPhoto.id != this.id) {
       this.dataService.deletePhoto(this.id).subscribe();
     }
-    this.dataService.updatePhoto(updatedPhoto).subscribe(
+    this.dataService.updatePhoto(updatedPhoto)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(
       (resp) => { 
         this.notificationService.success("Photo updated successfully!");
         this.router.navigate(['/gallery']);
@@ -74,7 +84,9 @@ export class EditPhotoComponent implements OnInit {
           this.invalidID = true;
         }
         else {
-          this.dataService.getPhoto(id).toPromise()
+          this.dataService.getPhoto(id)
+                              .pipe(takeUntil(this.ngUnsubscribe))
+                              .toPromise()
                               .then((photo: Photo) => {
                                 // there already exists a photo with this id
                                 this.invalidID = true;

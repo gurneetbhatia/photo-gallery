@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { DataService } from '../shared/data.service';
 import { Photo } from '../shared/photo';
 import { NotificationService } from '../shared/notification.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
   templateUrl: './gallery-view.component.html',
   styleUrls: ['./gallery-view.component.css']
 })
-export class GalleryViewComponent implements OnInit {
+export class GalleryViewComponent implements OnInit, OnDestroy {
 
   photos: Photo[];
   currentPage: number = 1;
@@ -18,11 +20,21 @@ export class GalleryViewComponent implements OnInit {
   maxPage: number = 1;
   pages: number[] = [];
 
+  private ngUnsubscribe = new Subject();
+
   constructor(private dataService: DataService,
               private notificationService: NotificationService) {  }
 
+  
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+              
   loadPage(isInitial: boolean = false) {
-    this.dataService.getPhotosPage(this.currentPage, this.pageSize).subscribe(
+    this.dataService.getPhotosPage(this.currentPage, this.pageSize)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(
       (resp) => {
         if (isInitial) {
           this.dataService.maxId = +resp.headers.get('X-Total-Count');

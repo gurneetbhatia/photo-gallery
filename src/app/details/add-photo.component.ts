@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { Photo } from '../shared/photo';
 import { DataService } from '../shared/data.service';
@@ -10,13 +12,19 @@ import { NotificationService } from '../shared/notification.service';
   templateUrl: './add-photo.component.html',
   styleUrls: ['./add-photo.component.css']
 })
-export class AddPhotoComponent implements OnInit {
+export class AddPhotoComponent implements OnInit, OnDestroy {
 
   photo: Photo = new Photo();
+  private ngUnsubscribe = new Subject();
 
   constructor(private router: Router,
               private dataService: DataService,
               private notificationService: NotificationService) { }
+  
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
   onSubmit(photoForm: NgForm) {
     if (photoForm.valid && !this.checkNaN(photoForm.value.albumId)) {
@@ -29,16 +37,18 @@ export class AddPhotoComponent implements OnInit {
         url: values.photoUrl,
         thumbnailUrl: values.photoThumbnail
       };
-      this.dataService.createPhoto(this.photo).subscribe(
-        (resp) => {
-          this.notificationService.success("Photo was created succesfully!");
-          this.router.navigate(['/gallery']);
-        },
-        (err) => {
-          this.notificationService.error("There was an error posting your picture. Please try again later.");
-          this.router.navigate(['/gallery']);
-        }
-      )
+      this.dataService.createPhoto(this.photo)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(
+          (resp) => {
+            this.notificationService.success("Photo was created succesfully!");
+            this.router.navigate(['/gallery']);
+          },
+          (err) => {
+            this.notificationService.error("There was an error posting your picture. Please try again later.");
+            this.router.navigate(['/gallery']);
+          }
+       )
     }
   }
 

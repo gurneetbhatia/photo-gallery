@@ -27,12 +27,26 @@ export class GalleryViewComponent implements OnInit {
           this.dataService.maxId = +resp.headers.get('X-Total-Count');
           this.maxPage = this.dataService.maxId/this.pageSize;
           this.pages = Array(this.maxPage).fill(0).map((x,i)=>i+1);
-          console.log(this.maxPage === this.currentPage);
         }
         this.photos = <Photo[]>resp.body;
       },
       err => this.notificationService.error("There was a problem fetching the photos at this point. Please try again later.")
     )
+  }
+
+  previousPage() {
+    this.currentPage -= 1;
+    this.loadPage();
+  }
+
+  nextPage() {
+    this.currentPage += 1;
+    this.loadPage();
+  }
+
+  pageButtonClicked(page: number) {
+    this.currentPage = page;
+    this.loadPage();
   }
 
   ngOnInit(): void {

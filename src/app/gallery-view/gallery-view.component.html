@@ -10,19 +10,19 @@
 <nav aria-label="Page numbers">
     <ul class="pagination flex-wrap">
         <li [ngClass]="{'page-item': true, 'disabled': currentPage === 1}">
-            <a class="page-link" tabindex="-1">Previous</a>
+            <button (click)="previousPage()" class="page-link" tabindex="-1">Previous</button>
         </li>
       
         <li *ngFor="let pageNum of pages" 
             [ngClass]="{'page-item': true, 'active': pageNum === currentPage}">
-            <button class="page-link">
+            <button class="page-link" (click)="pageButtonClicked(pageNum)">
                 {{pageNum}} 
                 <span *ngIf="pageNum === currentPage" class="sr-only">(current)</span>
             </button>
         </li>
 
         <li [ngClass]="{'page-item': true, 'disabled': currentPage === maxPage}">
-            <a class="page-link">Next</a>
+            <button (click)="nextPage()" class="page-link">Next</button>
         </li>
     </ul>
 </nav>

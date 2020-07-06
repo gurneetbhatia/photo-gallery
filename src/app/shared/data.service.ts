@@ -21,7 +21,11 @@ export class DataService {
   }
 
   updatePhoto(photo: Photo): Observable<Photo> {
-    return this.http.patch<Photo>(`http://jsonplaceholder.typicode.com/photos/${photo.id}`, photo)
+    return this.http.patch<Photo>(`http://jsonplaceholder.typicode.com/photos/${photo.id}`, photo);
+  }
+
+  createPhoto(photo: Photo): Observable<Photo> {
+    return this.http.put<Photo>(`http://jsonplaceholder.typicode.com/photos/${photo.id}`, photo);
   }
 
   deletePhoto(id: number): Observable<any> {

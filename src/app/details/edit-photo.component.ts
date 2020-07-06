@@ -31,6 +31,10 @@ export class EditPhotoComponent implements OnInit {
       url: formValues.photoUrl,
       thumbnailUrl: formValues.photoThumbnail
     }
+    // if the id has been modified, the photo with the previous id needs to be deleted
+    if(updatedPhoto.id != this.id) {
+      this.dataService.deletePhoto(this.id).subscribe();
+    }
     this.dataService.updatePhoto(updatedPhoto).subscribe(
       (resp) => { 
         this.notificationService.success("Photo updated successfully!");

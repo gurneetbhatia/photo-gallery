@@ -52,6 +52,7 @@ export class GalleryViewComponent implements OnInit {
 
   refreshPage(form: NgForm) {
     if (form.valid && !(this.checkNaN(this.currentPage) || this.checkNaN(this.pageSize)) ) {
+      this.pageSize = this.pageSize <= 0 ? 1 : this.pageSize;
       this.maxPage = Math.ceil(this.dataService.maxId/this.pageSize);
       this.currentPage = this.currentPage < 0 ? 0 : this.currentPage;
       this.currentPage = this.currentPage > this.maxPage ? this.maxPage : this.currentPage;

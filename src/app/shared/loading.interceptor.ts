@@ -13,7 +13,6 @@ export class LoadingScreenInterceptor implements HttpInterceptor {
     constructor(private loadingScreenService: LoadingScreenService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log("in the interceptor");
         
         if (this.activeRequests === 0) {
             this.loadingScreenService.startLoading();

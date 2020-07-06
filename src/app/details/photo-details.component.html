@@ -1,8 +1,8 @@
 <div *ngIf="photo" align="center" class="container photo-details">
     <div class="text-right utility-buttons">
-        <button class="btn btn-info">
+        <a [routerLink]="['/gallery/edit', id]" class="btn btn-info">
             Edit
-        </button>
+        </a>
         <button class="btn btn-danger" (click)="deletePhoto()">
             Delete
         </button>

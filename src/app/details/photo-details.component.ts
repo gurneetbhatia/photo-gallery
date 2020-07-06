@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, } from '@angular/router';
+import { ActivatedRoute, Router, } from '@angular/router';
 
 import { Photo } from '../shared/photo';
 import { DataService } from '../shared/data.service';
@@ -15,6 +15,7 @@ export class PhotoDetailsComponent implements OnInit {
   photo: Photo;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private dataService: DataService,
               private notificationService: NotificationService) { }
 
@@ -22,7 +23,7 @@ export class PhotoDetailsComponent implements OnInit {
     // implement the error function too
     this.dataService.getPhoto(this.id).subscribe(
       (photo) => this.photo = photo,
-      (err) => { console.log(err) }
+      (err) => { this.notificationService.error(err) }
     );
   }
 
@@ -33,6 +34,7 @@ export class PhotoDetailsComponent implements OnInit {
       this.dataService.deletePhoto(this.id).subscribe(
         (resp) => {
           this.notificationService.success("Photo deleted successfully!");
+          this.router.navigate(['/gallery']);
         },
         (err) => this.notificationService.error("There was an error trying to delete the picture. Please try again later.")
       )

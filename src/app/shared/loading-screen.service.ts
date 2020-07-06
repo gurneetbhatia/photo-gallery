@@ -9,7 +9,7 @@ export class LoadingScreenService {
   private _loading: boolean = false;
   loadingStatus: Subject<boolean> = new Subject();
 
-  constructor() { console.log("in the loading service"); }
+  constructor() { }
 
   get loading(): boolean {
     return this._loading;

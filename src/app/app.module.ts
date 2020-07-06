@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -12,6 +13,7 @@ import { PhotoCardComponent } from './gallery-view/photo-card.component';
 import { LoadingScreenComponent } from './shared/loading-screen.component';
 import { LoadingScreenInterceptor } from './shared/loading.interceptor';
 import { PhotoDetailsComponent } from './details/photo-details.component';
+import { EditPhotoComponent } from './details/edit-photo.component';
 
 @NgModule({
   declarations: [
@@ -20,10 +22,12 @@ import { PhotoDetailsComponent } from './details/photo-details.component';
     GalleryViewComponent,
     PhotoCardComponent,
     LoadingScreenComponent,
-    PhotoDetailsComponent
+    PhotoDetailsComponent,
+    EditPhotoComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),

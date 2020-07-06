@@ -20,6 +20,10 @@ export class DataService {
     return this.http.get<Photo>(`http://jsonplaceholder.typicode.com/photos/${id}`);
   }
 
+  updatePhoto(photo: Photo): Observable<Photo> {
+    return this.http.patch<Photo>(`http://jsonplaceholder.typicode.com/photos/${photo.id}`, photo)
+  }
+
   deletePhoto(id: number): Observable<any> {
     return this.http.delete(`http://jsonplaceholder.typicode.com/photos/${id}`);
   }

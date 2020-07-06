@@ -19,14 +19,12 @@ export class DetailsPageGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const id = +next.params['id'];
-      console.log(state);
       if (isNaN(id)) {
         this.notificationService.error("Invalid Photo ID!");
         this.router.navigate(['/gallery']);
         return false;
       }
       // now check if the id exists on the api
-      console.log("checking activation");
       return this.dataService.getPhoto(id)
         .toPromise()
         .then((photo: Photo) => {

@@ -1,5 +1,8 @@
 <div *ngIf="photo" align="center" class="container photo-details">
     <div class="text-right utility-buttons">
+        <a class="btn btn-secondary" [routerLink]="['/gallery']">
+            Back
+        </a>
         <a [routerLink]="['/gallery/edit', id]" class="btn btn-info">
             Edit
         </a>

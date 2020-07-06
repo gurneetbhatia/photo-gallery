@@ -18,9 +18,13 @@ export class GalleryViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getPhotos().subscribe(
-      resp => this.photos = resp,
+      resp => {
+        this.photos = resp;
+        this.dataService.data = resp;
+      },
       err => this.notificationService.error("There was a problem fetching the photos at this point. Please try again later.")
     );
+
   }
 
 }

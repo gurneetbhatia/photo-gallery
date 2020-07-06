@@ -44,6 +44,18 @@ export class EditPhotoComponent implements OnInit {
     );
   }
 
+  onCancel(form: NgForm) {
+    if (form.pristine) {
+      // none of the values have been modified so we can just navigate to the details page
+      this.notificationService.info("No changes were made to the photo.");
+      this.router.navigate(['/gallery', this.id]);
+    }
+    else if(confirm("Are you sure you want to navigate away without saving your changes?")) {
+      this.notificationService.info("No changes were made to the photo.");
+      this.router.navigate(['/gallery', this.id]);
+    }
+  }
+
   onSubmit(form: NgForm) {
     if(form.pristine) {
       // the form has not been modified in any manner, so the user can be returned to the main page

@@ -14,6 +14,7 @@ import { LoadingScreenComponent } from './shared/loading-screen.component';
 import { LoadingScreenInterceptor } from './shared/loading.interceptor';
 import { PhotoDetailsComponent } from './details/photo-details.component';
 import { EditPhotoComponent } from './details/edit-photo.component';
+import { AddPhotoComponent } from './details/add-photo.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { EditPhotoComponent } from './details/edit-photo.component';
     PhotoCardComponent,
     LoadingScreenComponent,
     PhotoDetailsComponent,
-    EditPhotoComponent
+    EditPhotoComponent,
+    AddPhotoComponent
   ],
   imports: [
     BrowserModule,

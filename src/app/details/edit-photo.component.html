@@ -39,7 +39,7 @@
         </div>
 
         <div align="right" class="form-buttons">
-            <a type="button" [routerLink]="['/gallery', id]" class="btn btn-danger" name="cancel-btn">Cancel</a>
+            <button (click)="onCancel(photoForm)" type="button" class="btn btn-danger" name="cancel-btn">Cancel</button>
             <button type="submit" class="btn btn-success" name="confirm-btn">Confirm</button>
         </div>
     </form>
